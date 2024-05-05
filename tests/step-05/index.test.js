@@ -5,7 +5,7 @@ const executeSELECTQuery = require('../../src/index');
 test('Read CSV File', async () => {
     const data = await readCSV('./student.csv');
     expect(data.length).toBeGreaterThan(0);
-    expect(data.length).toBe(3);
+    expect(data.length).toBe(4);
     expect(data[0].name).toBe('John');
     expect(data[0].age).toBe('30'); //ignore the string type here, we will fix this later
 });
@@ -17,6 +17,14 @@ test('Parse SQL Query', () => {
         fields: ['id', 'name'],
         table: 'student',
         whereClauses: [],
+        joinCondition: null,
+        joinTable: null,
+        joinType: null,
+        groupByFields: null,
+        hasAggregateWithoutGroupBy: false,
+        "orderByFields": null,
+        "limit": null,
+        isDistinct: false
     });
 });
 
@@ -36,13 +44,19 @@ test('Parse SQL Query with WHERE Clause', () => {
     expect(parsed).toEqual({
         fields: ['id', 'name'],
         table: 'student',
-        "whereClauses": [
-            {
-                "field": "age",
-                "operator": "=",
-                "value": "25",
-            },
-        ],
+        whereClauses: [{
+            "field": "age",
+            "operator": "=",
+            "value": "25",
+        }],
+        joinCondition: null,
+        joinTable: null,
+        joinType: null,
+        groupByFields: null,
+        hasAggregateWithoutGroupBy: false,
+        "orderByFields": null,
+        "limit": null,
+        isDistinct: false
     });
 });
 
